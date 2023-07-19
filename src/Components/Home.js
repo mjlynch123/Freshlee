@@ -15,6 +15,10 @@ export default function Home({ handleScroll }) {
         <div className="hamburger-icon" onClick={handleHamburger}>
           <i class="fa-solid fa-bars"></i>
         </div>
+
+        <div className="header-logo">
+          <h1>Freshly</h1>
+        </div>
         <div className="header-words">
           <h1>Fresh To Your Door</h1>
           <p>
