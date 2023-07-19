@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SubscribeForm from "./SubscribeForm";
 
-export default function Subscribe() {
-  const [showForm, setShowForm] = useState(false);
+export default function Subscribe({ showForm, setShowForm }) {
+  const subscribeContainerRef = useRef(null);
+  const formBottomRef = useRef(null);
+
+  useEffect(() => {
+    if (showForm) {
+      const subscribeForm = document.getElementById("subscribe-form");
+      if (subscribeForm) {
+        const { top } = subscribeForm.getBoundingClientRect();
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    }
+  }, [showForm]);
 
   const handleSubscribe = () => {
     setShowForm(true);
@@ -14,7 +25,11 @@ export default function Subscribe() {
 
   return (
     <>
-      <div className="subscribe">
+      <div
+        className="subscribe"
+        ref={subscribeContainerRef}
+        id="subscribe-component"
+      >
         <div className="subscribe-header">
           <h1>Subscribe</h1>
         </div>
@@ -27,10 +42,10 @@ export default function Subscribe() {
           </div>
         )}
         {showForm && (
-          <div className="subscribe-form">
+          <div className="subscribe-form" id="subscribe-form">
             <div className="subscribe-form-header">
-              <h1 onClick={handleX} class="close">
-                <i class="fa-solid fa-xmark"></i>
+              <h1 onClick={handleX} className="close">
+                <i className="fa-solid fa-xmark"></i>
               </h1>
             </div>
             <SubscribeForm setShowForm={setShowForm} />
